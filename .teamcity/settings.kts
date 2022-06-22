@@ -85,6 +85,13 @@ object TcHelmDsl_Build : BuildType({
     name = "Build"
 
     templates(HelmTemplate)
+
+    steps {
+        script {
+            name = "Hello again"
+            scriptContent = """echo Hello again """
+        }
+    }
 })
 
 object TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain : GitVcsRoot({
