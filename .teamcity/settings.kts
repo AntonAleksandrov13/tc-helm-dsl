@@ -57,9 +57,13 @@ object TcHelmDsl : Project({
     vcsRoot(TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain)
 
     buildType(TcHelmDsl_Build)
+    template(HelmTemplate)
+
 })
 
 object HelmTemplate: Template({
+    name = "HelmTemplate"
+
     vcs {
         root(TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain)
     }
