@@ -1,5 +1,8 @@
 import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.projectFeatures.buildReportTab
+import jetbrains.buildServer.configs.kotlin.triggers.vcs
+import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -43,4 +46,46 @@ project {
             preventDependencyCleanup = false
         }
     }
+
+    subProject(TcHelmDsl)
 }
+
+
+object TcHelmDsl : Project({
+    name = "TC Helm DSL"
+
+    vcsRoot(TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain)
+
+    buildType(TcHelmDsl_Build)
+})
+
+object TcHelmDsl_Build : BuildType({
+    name = "Build"
+
+    vcs {
+        root(TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain)
+    }
+
+    steps {
+        script {
+            name = "Echo"
+            scriptContent = """echo "Hello""""
+        }
+    }
+
+    triggers {
+        vcs {
+        }
+    }
+})
+
+object TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain : GitVcsRoot({
+    name = "https://github.com/AntonAleksandrov13/tc-helm-dsl#refs/heads/main"
+    url = "https://github.com/AntonAleksandrov13/tc-helm-dsl"
+    branch = "refs/heads/main"
+    branchSpec = "refs/heads/*"
+    authMethod = password {
+        userName = "AntonAleksandrov13"
+        password = ""
+    }
+})
