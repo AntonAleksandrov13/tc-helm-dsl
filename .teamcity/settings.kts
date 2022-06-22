@@ -59,9 +59,7 @@ object TcHelmDsl : Project({
     buildType(TcHelmDsl_Build)
 })
 
-object TcHelmDsl_Build : BuildType({
-    name = "Build"
-
+object HelmTemplate: Template({
     vcs {
         root(TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain)
     }
@@ -77,6 +75,12 @@ object TcHelmDsl_Build : BuildType({
         vcs {
         }
     }
+})
+
+object TcHelmDsl_Build : BuildType({
+    name = "Build"
+
+    templates(HelmTemplate)
 })
 
 object TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain : GitVcsRoot({
