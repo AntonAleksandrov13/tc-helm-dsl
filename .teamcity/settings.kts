@@ -61,8 +61,8 @@ object TcHelmDsl : Project({
 
 })
 
-object HelmTemplate: Template({
-    name = "HelmTemplate"
+abstract class BaseHelmTemplate() : Template({
+    name = "BaseHelmTemplate"
 
     vcs {
         root(TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain)
@@ -81,17 +81,21 @@ object HelmTemplate: Template({
     }
 })
 
+object HelmTemplate : BaseHelmTemplate() {
+    init {
+        steps {
+            script {
+                name = "Hello again"
+                scriptContent = """echo Hello again """
+            }
+        }
+    }
+}
+
 object TcHelmDsl_Build : BuildType({
     name = "Build"
 
     templates(HelmTemplate)
-
-    steps {
-        script {
-            name = "Hello again"
-            scriptContent = """echo Hello again """
-        }
-    }
 })
 
 object TcHelmDsl_HttpsGithubComAntonAleksandrov13tcHelmDslRefsHeadsMain : GitVcsRoot({
