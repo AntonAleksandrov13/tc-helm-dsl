@@ -69,7 +69,7 @@ object TcHelmDsl_Build : BuildType({
     steps {
         script {
             name = "Echo"
-            scriptContent = """echo "Hello""""
+            scriptContent = """echo "Hello world""""
         }
     }
 
